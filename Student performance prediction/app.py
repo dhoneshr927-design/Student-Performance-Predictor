@@ -5,8 +5,14 @@ import joblib
 import sqlite3
 import datetime
 from fpdf import FPDF
+import os
+import joblib
 
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "student_performance_model.pkl")
+
+model = joblib.load(model_path)
 
 def generate_pdf(score, student_class, study_hours, attendance, recommendations):
     pdf = FPDF()
@@ -178,7 +184,6 @@ with st.form("student_form"):
     submit_button = st.form_submit_button("Predict Performance")
 
 
-# Form Submit হওয়ার পর Mappings, Prediction এবং History দেখাবে
 if submit_button:
     # ১. ম্যাপিং
     gender_map = {"Male": 1, "Female": 0}
@@ -188,7 +193,7 @@ if submit_button:
     activity_map = {"Yes": 1, "No": 0}
     pass_fail_map = {"Pass": 1, "Fail": 0}
 
-    # ২. DataFrame তৈরি
+    # ২. DataFrame 
     input_data = pd.DataFrame({
         'Age': [age],
         'Gender': [gender_map[gender]],
