@@ -83,7 +83,7 @@ def generate_pdf(score, student_class, study_hours, attendance, recommendations)
     pdf.set_text_color(100, 116, 139)
     pdf.cell(0, 8, txt="Developed by DhaneshAI |© 2026 All Rights Reserved", align='C', ln=True)
     
-    return pdf.output(dest='S').encode('latin-1')
+    return bytes(pdf.output(dest='S'))
 
 # Page Configuration
 st.set_page_config(page_title="Student Performance Predictor", page_icon="🎓", layout="centered")
